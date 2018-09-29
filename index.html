@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象</title>
+</head>
+<body>
+	
+</body>   
+</html>
+<script src="DN.js"></script>
+<script type="text/javascript">
+	//重用性、灵活性、扩展性
+	//
+	Function.prototype.myCall = function(context) {
+		let args = [],result;
+		for(let i = 1; i < arguments.length; i++) {
+			args.push(arguments[i]);
+		}
+		context.fn = this;
+		result = context.fn(...args);
+		delete context.fn;
+		return result;
+	}
+	var cat = {
+		name: 'zhang'
+	}
+	var getName = function(work) {
+		console.log("name: " + this.name)
+		console.log("work: " + work);
+		return '别再掉头发了';
+	}
+	getName.call(cat,'IT');   //等价于cat.getName();
+	getName.myCall(cat,'IT');   //等价于cat.getName();
+	DN.myCall(getName,cat,'eating')
+
+
+	//等价于
+	var cat = {
+		name: 'zhang',
+		getName: function() {
+			console.log(this.name);
+		}
+	}
+
+
+	// apply  call
+	// 1 obj.fn = bar;
+	// 2 obj.fn();
+	// 3 delete obj.fn
+</script>
